@@ -2,6 +2,7 @@
 
 // get classes
 require_once 'UserEndpoint.class.php';
+require_once 'EventEndpoint.class.php';
 require_once 'InvalidEndpoint.class.php';
 
 // request sent from client
@@ -22,6 +23,10 @@ if (!in_array($version, $aliveVersions)) {
 
 // decide which endpoint to use
 switch ($endpoint) {
+
+	case 'event':
+		$api = new EventEndpoint($request);
+		break;
 
 	case 'user':
 		$api = new UserEndpoint($request);

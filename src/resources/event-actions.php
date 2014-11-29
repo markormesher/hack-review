@@ -26,7 +26,8 @@ class Events {
 	}
 
 	public static function searchByLocation($location) {
-		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'events` WHERE MATCH (`address`, `city`, `postcode`, `country`) AGAINST (\'' . $location . '\')');
+		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'events` WHERE MATCH (`address`) AGAINST (\'' . $location . '\') OR MATCH (`city`) AGAINST (\'' . $location . '\') OR MATCH (`postcode`) AGAINST (\'' . $location . '\') OR MATCH (`country`) AGAINST (\'' . $location . '\');');
+		echo mysql_error();
 		if (mysql_num_rows($result) == 0) {
 			return array();
 		} else {
