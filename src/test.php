@@ -2,7 +2,7 @@
 
 require_once 'resources/_master-list.php';
 
-Responses::getAverageQuestionScoreByEventId(1);
+$test = Responses::generateResponseIds(5, 20);
 
 print_r($test);
 

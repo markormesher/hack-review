@@ -61,4 +61,17 @@ class Responses {
 		}
 	}
 
+	public static function generateResponseIds($eventId, $quantity) {
+		$result = mysql_query('SELECT MAX(`response_id`) FROM `' . DB_PREFIX . 'response_values` LIMIT 1;');
+		$row = mysql_fetch_array($result, 0);
+		$highest = base_convert($row[0], 36, 10);
+		$ids = array();
+		for ($i = 0; $i < $quantity; $i++) {
+			$newId = str_pad(base_convert(($highest + $i) . '', 10, 36), 6, '0', STR_PAD_LEFT);
+			$ids[] = $newId;
+			mysql_query('INSERT INTO `' . DB_PREFIX . 'responses` VALUES (\'' . $newId . '\', \'' . $eventId . '\', \'open\');');
+		}
+		return $ids;
+	}
+
 }
