@@ -3,7 +3,7 @@
 class Users {
 
 	public static function getById($id) {
-		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'users` WHERE `id` = \'' . $id . '\' LIMIT 1');
+		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'users` WHERE `user_id` = \'' . $id . '\' LIMIT 1');
 		if (mysql_num_rows($result) == 0) {
 			return null;
 		} else {
@@ -24,7 +24,7 @@ class Users {
 		mysql_query('INSERT INTO `' . DB_PREFIX . 'users` VALUES(
 			NULL,
 			\'' . $email . '\',
-			\'' . $pass . '\',
+			\'' . Utils::hashPassword($pass) . '\',
 			\'' . $name . '\'
  		);');
 		$insertId = mysql_insert_id();

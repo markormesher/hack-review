@@ -72,7 +72,7 @@ class Events {
 		}
 	}
 
-	public static function update($id, $title, $address, $city, $postcode, $country, $start, $end, $hackStart, $hackEnd, $logoFile, $organiserId) {
+	public static function update($id, $title = null, $address = null, $city = null, $postcode = null, $country = null, $start = null, $end = null, $hackStart = null, $hackEnd = null, $logoFile = null, $organiserId = null) {
 		// collect updates
 		$updates = array();
 		if ($title != null) $updates['title'] = $title;
