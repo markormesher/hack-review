@@ -62,7 +62,7 @@ class Responses {
 	}
 
 	public static function generateResponseIds($eventId, $quantity) {
-		$result = mysql_query('SELECT MAX(`response_id`) FROM `' . DB_PREFIX . 'response_values` LIMIT 1;');
+		$result = mysql_query('SELECT `response_id` FROM `' . DB_PREFIX . 'responses` ORDER BY `response_id` DESC LIMIT 1;');
 		$row = mysql_fetch_array($result, 0);
 		$highest = base_convert($row[0], 36, 10);
 		$ids = array();
