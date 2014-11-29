@@ -1,0 +1,5 @@
+<?php
+
+// CONNECTION DETAILS GO HERE, BUT REMOVED FROM GIT
+
+define('DB_PREFIX', 'oxhack_');
