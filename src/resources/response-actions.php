@@ -59,6 +59,7 @@ class Responses {
 				mysql_query('INSERT INTO `' . DB_PREFIX . 'response_values` VALUES (NULL, \'' . $responseId . '\', \'' . $questionId . '\', \'' . mysql_insert_id() . '\', \'1\');');
 			}
 		}
+		mysql_query('UPDATE `' . DB_PREFIX . 'responses` SET `status` = \'closed\' WHERE `response_id` = \'' . $responseId . '\';');
 	}
 
 	public static function generateResponseIds($eventId, $quantity) {
