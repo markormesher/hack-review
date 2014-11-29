@@ -12,7 +12,7 @@ class QuestionEndpoint extends BaseAPI {
 		$args = parent::getArgs();
 		$verb = parent::getVerb();
 
-		if ($method == 'GET' && $verb == 'byevent' && count($args) == 1) {
+		if ($method == 'GET' && $verb == 'by_event' && count($args) == 1) {
 			$this->getByEventId($args[0]);
 			return;
 		}

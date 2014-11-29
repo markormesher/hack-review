@@ -58,6 +58,16 @@ class Events {
 		}
 	}
 
+	public static function getByResponseId($responseId) {
+		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'responses` WHERE `response_id` = \'' . $responseId . '\' LIMIT 1;');
+		if (mysql_num_rows($result) == 0) {
+			return null;
+		} else {
+			$row = mysql_fetch_array($result, MYSQL_ASSOC);
+			return Events::getById($row['event_id']);
+		}
+	}
+
 	/* MUTATORS */
 
 	public static function create($title, $address, $city, $postcode, $country, $start, $end, $hackStart, $hackEnd, $logoFile, $organiserId) {

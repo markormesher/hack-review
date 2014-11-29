@@ -13,8 +13,13 @@ class EventEndpoint extends BaseAPI {
 		$verb = parent::getVerb();
 		$qs = parent::getQueryString();
 
-		if ($method == 'GET' && count($args) == 1 && $verb == 'byorganiser') {
+		if ($method == 'GET' && count($args) == 1 && $verb == 'by_organiser') {
 			$this->getByOrganiserId($args[0]);
+			return;
+		}
+
+		if ($method == 'GET' && count($args) == 1 && $verb == 'by_response') {
+			$this->getByResponseId($args[0]);
 			return;
 		}
 
@@ -55,6 +60,11 @@ class EventEndpoint extends BaseAPI {
 
 	function getByOrganiserId($id) {
 		$result = Events::getByOrganiserId($id);
+		parent::_sendResponse($result);
+	}
+
+	function getByResponseId($id) {
+		$result = Events::getByResponseId($id);
 		parent::_sendResponse($result);
 	}
 

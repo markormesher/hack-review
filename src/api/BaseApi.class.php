@@ -34,7 +34,7 @@ abstract class BaseAPI {
 			$this->version = 0;
 		}
 		$this->endpoint = strtolower(array_shift($this->args));
-		if (array_key_exists(0, $this->args) && preg_match('/^[a-z]*$/i', $this->args[0])) {
+		if (array_key_exists(0, $this->args) && preg_match('/^[_\-a-z]*$/i', $this->args[0])) {
 			$this->verb = strtolower(array_shift($this->args));
 		}
 
