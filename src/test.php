@@ -2,8 +2,8 @@
 
 require_once 'resources/_master-list.php';
 
-$create = Users::create('Oxford Entrpreneurs', 'ox@fo.rd', 'oxford');
+$test = Events::getByOrganiserId(1);
 
-prinr_t($create);
+print_r($test);
 
 ?></pre>

@@ -47,6 +47,17 @@ class Events {
 		}
 	}
 
+	public static function getByOrganiserId($organiserId) {
+		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'events` WHERE `organiser_id` = \'' . $organiserId . '\' ORDER BY `start`;');
+		if (mysql_num_rows($result) == 0) {
+			return array();
+		} else {
+			$output = array();
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) $output[] = $row;
+			return $output;
+		}
+	}
+
 	/* MUTATORS */
 
 	public static function create($title, $address, $city, $postcode, $country, $start, $end, $hackStart, $hackEnd, $logoFile, $organiserId) {

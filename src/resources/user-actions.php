@@ -1,5 +1,6 @@
 <?php
 
+<<<<<<< HEAD
 class Users
 {
 
@@ -26,6 +27,30 @@ class Users
     public static function create($name, $email, $pass)
     {
         mysql_query('INSERT INTO `' . DB_PREFIX . 'users` VALUES(
+=======
+class Users {
+
+	public static function getById($id) {
+		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'organisers` WHERE `organiser_id` = \'' . $id . '\' LIMIT 1');
+		if (mysql_num_rows($result) == 0) {
+			return null;
+		} else {
+			return mysql_fetch_array($result, MYSQL_ASSOC);
+		}
+	}
+
+	public static function getByCredentials($email, $password) {
+		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'organisers` WHERE `email` = \'' . $email . '\' AND `password` = \'' . Utils::hashPassword($password) . '\' LIMIT 1');
+		if (mysql_num_rows($result) == 0) {
+			return null;
+		} else {
+			return mysql_fetch_array($result, MYSQL_ASSOC);
+		}
+	}
+
+	public static function create($name, $email, $pass) {
+		mysql_query('INSERT INTO `' . DB_PREFIX . 'organisers` VALUES(
+>>>>>>> ca485954847857c926427cea10306fad0a7a70fc
 			NULL,
 			\'' . $email . '\',
 			\'' . Utils::hashPassword($pass) . '\',
