@@ -4,6 +4,7 @@
 require_once 'UserEndpoint.class.php';
 require_once 'EventEndpoint.class.php';
 require_once 'QuestionEndpoint.class.php';
+require_once 'ResponseEndpoint.class.php';
 require_once 'InvalidEndpoint.class.php';
 
 // request sent from client
@@ -31,6 +32,10 @@ switch ($endpoint) {
 
 	case 'question':
 		$api = new QuestionEndpoint($request);
+		break;
+
+	case 'response':
+		$api = new ResponseEndpoint($request);
 		break;
 
 	case 'user':
