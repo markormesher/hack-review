@@ -21,4 +21,15 @@ class Responses {
 		}
 	}
 
+	public static function send($responseId, $values) {
+		foreach ($values as $questionId => $value) {
+			if (is_numeric($value)) {
+				mysql_query('INSERT INTO `' . DB_PREFIX . 'response_values` VALUES (NULL, \'' . $responseId . '\', \'' . $questionId . '\', \'' . $value . '\', \'0\');');
+			} else {
+				mysql_query('INSERT INTO `' . DB_PREFIX . 'response_text_values` VALUES (NULL, \'' . mysql_escape_string($value) . '\');');
+				mysql_query('INSERT INTO `' . DB_PREFIX . 'response_values` VALUES (NULL, \'' . $responseId . '\', \'' . $questionId . '\', \'' . mysql_insert_id() . '\', \'1\');');
+			}
+		}
+	}
+
 }
