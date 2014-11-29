@@ -2,7 +2,7 @@
 
 require_once 'resources/_master-list.php';
 
-$test = Events::getByOrganiserId(1);
+$test = Responses::getById("000001");
 
 print_r($test);
 
