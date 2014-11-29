@@ -5,7 +5,8 @@ class Events {
 	/* ACCESSORS */
 
 	public static function getById($id) {
-		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'events` WHERE `id` = \'' . $id . '\' LIMIT 1;');
+		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'events` WHERE `event_id` = \'' . $id . '\' LIMIT 1;');
+		echo mysql_error();
 		if (mysql_num_rows($result) == 0) {
 			return null;
 		} else {
@@ -14,15 +15,36 @@ class Events {
 	}
 
 	public static function searchByTitle($title) {
-
+		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'events` WHERE MATCH (`title`) AGAINST (\'' . $title . '\')');
+		if (mysql_num_rows($result) == 0) {
+			return array();
+		} else {
+			$output = array();
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) $output[] = $row;
+			return $output;
+		}
 	}
 
 	public static function searchByLocation($location) {
-
+		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'events` WHERE MATCH (`address`, `city`, `postcode`, `country`) AGAINST (\'' . $location . '\')');
+		if (mysql_num_rows($result) == 0) {
+			return array();
+		} else {
+			$output = array();
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) $output[] = $row;
+			return $output;
+		}
 	}
 
 	public static function searchByDate($rangeStart, $rangeEnd) {
-
+		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'events` WHERE `start` >= \'' . date('Y-m-d H:i:s', strtotime($rangeStart)) . '\' AND `end` <= \'' . date('Y-m-d H:i:s', strtotime($rangeEnd)) . '\';');
+		if (mysql_num_rows($result) == 0) {
+			return array();
+		} else {
+			$output = array();
+			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) $output[] = $row;
+			return $output;
+		}
 	}
 
 	/* MUTATORS */
@@ -79,7 +101,7 @@ class Events {
 					$updateStrings[] = '`' . $k . '` = \'' . $v . '\'';
 				}
 			}
-			mysql_query('UPDATE `' . DB_PREFIX . 'events` SET ' . implode(', ', $updateStrings) . ' WHERE `id` = \'' . $id . '\' LIMIT 1;');
+			mysql_query('UPDATE `' . DB_PREFIX . 'events` SET ' . implode(', ', $updateStrings) . ' WHERE `event_id` = \'' . $id . '\' LIMIT 1;');
 		}
 		return Events::getById($id);
 	}
