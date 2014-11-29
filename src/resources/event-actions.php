@@ -6,7 +6,6 @@ class Events {
 
 	public static function getById($id) {
 		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'events` WHERE `event_id` = \'' . $id . '\' LIMIT 1;');
-		echo mysql_error();
 		if (mysql_num_rows($result) == 0) {
 			return null;
 		} else {
@@ -26,7 +25,8 @@ class Events {
 	}
 
 	public static function searchByLocation($location) {
-		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'events` WHERE MATCH (`address`, `city`, `postcode`, `country`) AGAINST (\'' . $location . '\')');
+		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'events` WHERE MATCH (`address`) AGAINST (\'' . $location . '\') OR MATCH (`city`) AGAINST (\'' . $location . '\') OR MATCH (`postcode`) AGAINST (\'' . $location . '\') OR MATCH (`country`) AGAINST (\'' . $location . '\');');
+		echo mysql_error();
 		if (mysql_num_rows($result) == 0) {
 			return array();
 		} else {
@@ -55,6 +55,16 @@ class Events {
 			$output = array();
 			while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) $output[] = $row;
 			return $output;
+		}
+	}
+
+	public static function getByResponseId($responseId) {
+		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'responses` WHERE `response_id` = \'' . $responseId . '\' LIMIT 1;');
+		if (mysql_num_rows($result) == 0) {
+			return null;
+		} else {
+			$row = mysql_fetch_array($result, MYSQL_ASSOC);
+			return Events::getById($row['event_id']);
 		}
 	}
 
