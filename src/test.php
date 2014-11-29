@@ -2,7 +2,7 @@
 
 require_once 'resources/_master-list.php';
 
-$test = Responses::getAverageScoreByEventId(1) . " . " . Responses::getAverageScoreByQuestionId(2) . " . " . Responses::getAverageScoreByEventAndQuestionId(1, 2);
+Responses::getAverageQuestionScoreByEventId(1);
 
 print_r($test);
 
