@@ -20,4 +20,21 @@ class Users {
 		}
 	}
 
-}
+	public static function create($name, $email, $pass)
+
+		{
+			mysql_query('INSERT INTO '.DB_PREFIX.'
+(email, password, name) VALUES(
+			\'' . $email . '\',
+			\'' . $pass . '\',
+			\'' . $name . '\'
+
+ );');
+			$insertId = mysql_insert_id();
+			if ($insertId === false) {
+				return null;
+			} else {
+				return Users::getById($insertId);
+			}
+
+			}
