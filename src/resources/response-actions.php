@@ -2,6 +2,8 @@
 
 class Responses {
 
+	/* ACCESSORS */
+
 	public static function getById($id) {
 		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'response_values` WHERE `response_id` = \'' . $id . '\';');
 		if (mysql_num_rows($result) == 0) {
@@ -20,6 +22,26 @@ class Responses {
 			return $output;
 		}
 	}
+
+	public static function getAverageScoreByEventId($eventId) {
+		$result = mysql_query('SELECT AVG(`value`) FROM `' . DB_PREFIX . 'response_values` WHERE `response_id` IN (SELECT `response_id` FROM `' . DB_PREFIX . 'responses` WHERE `event_id` = \'' . $eventId . '\') AND `is_text` = 0;');
+		$row = mysql_fetch_array($result, MYSQL_NUM);
+		return $row[0];
+	}
+
+	public static function getAverageScoreByQuestionId($questionId) {
+		$result = mysql_query('SELECT count(`value`) FROM `' . DB_PREFIX . 'response_values` WHERE `' . DB_PREFIX . 'response_values`.`question_id` = \'' . $questionId . '\' AND `' . DB_PREFIX . 'response_values`.`is_text` = 0;');
+		$row = mysql_fetch_array($result, MYSQL_NUM);
+		return $row[0];
+	}
+
+	public static function getAverageScoreByEventAndQuestionId($eventId, $questionId) {
+		$result = mysql_query('SELECT AVG(`value`) FROM `' . DB_PREFIX . 'response_values` WHERE `response_id` IN (SELECT `response_id` FROM `' . DB_PREFIX . 'responses` WHERE `event_id` = \'' . $eventId . '\') AND `question_id` = \'' . $questionId . '\' AND `is_text` = 0;');
+		$row = mysql_fetch_array($result, MYSQL_NUM);
+		return $row[0];
+	}
+
+	/* MUTATORS */
 
 	public static function send($responseId, $values) {
 		foreach ($values as $questionId => $value) {
