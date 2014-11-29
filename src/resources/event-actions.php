@@ -6,7 +6,6 @@ class Events {
 
 	public static function getById($id) {
 		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'events` WHERE `event_id` = \'' . $id . '\' LIMIT 1;');
-		echo mysql_error();
 		if (mysql_num_rows($result) == 0) {
 			return null;
 		} else {
