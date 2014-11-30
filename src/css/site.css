@@ -167,7 +167,7 @@ a.text-primary:hover {
 	background: url('../images/rowbodybg.png') no-repeat center;
 	background-size: 100% 100%;
 	padding: 25px 15px;
-	height: 130px;
+	height: 160px;
 }
 
 .event-info .row {
@@ -230,7 +230,7 @@ a.text-primary:hover {
 }
 
 .row.body .event-right {
-	height: 130px;
+	height: 160px;
 }
 
 .row.body h3 {
