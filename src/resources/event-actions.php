@@ -68,6 +68,13 @@ class Events {
 		}
 	}
 
+	public static function getHomepageContent() {
+		$result = mysql_query('SELECT * FROM `' . DB_PREFIX . 'events` WHERE `start` <= NOW() ORDER BY `start` DESC;');
+		$output = array();
+		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) $output[] = $row;
+		return $output;
+	}
+
 	/* MUTATORS */
 
 	public static function create($title, $address, $city, $postcode, $country, $start, $end, $hackStart, $hackEnd, $logoFile, $organiserId) {
