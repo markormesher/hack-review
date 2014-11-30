@@ -1,10 +1,15 @@
-<?php require_once 'resources/_master-list.php'; ?>
+<?php
+require_once 'resources/_master-list.php';
+$responseId = $_GET['r'];
+$questions = Questions::getByResponseId($responseId);
+$event = Events::getByResponseId($responseId);
+?>
 <!DOCTYPE html>
 <html>
 	<head lang="en">
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title></title>
+		<title><?=$event == null ? 'Error' : $event['title']; ?></title>
 		<link href="/css/bootstrap.css" rel="stylesheet">
 		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		<link href="/css/site.css" rel="stylesheet">
