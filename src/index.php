@@ -57,19 +57,18 @@ require_once 'resources/_master-list.php';
 							<div class="dark-overlay"></div>
 							<div class="event-feedback header">
 								<div class="feedback-summary">
-									<h2><em>&quot;The event was well organised and the atmosphere was amazing!&quot;</em></h2>
+									<h2>
+										<em>&quot;The event was well organised and the atmosphere was amazing!&quot;</em>
+									</h2>
 								</div>
 								<div class="feedback-date">
 									<p class="help-block">11/14/2014</p>
 								</div>
 								<div class="feedback-rating">
-									<p><span class="stars">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-full"></i>
-                        </span>&nbsp;<span class="feedback-count">(74)</span></p>
+									<p>
+										<span class="stars"><?= Utils::getStarString(4.5); ?></span>&nbsp;
+										<span class="feedback-count">(74)</span>
+									</p>
 								</div>
 							</div>
 						</div>
@@ -122,16 +121,12 @@ require_once 'resources/_master-list.php';
 								<div class="feedback-rating">
 									<?php
 									$average = Responses::getAverageScoreByEventId($e['event_id']);
-									//$breakDowns = Responses::getAverageQuestionScoreByEventId($e['event_id']);
-
 									?>
-									<!--<p><span class="stars">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                        </span>&nbsp;<span class="feedback-count">(74)</span></p>-->
+									<p>
+										<strong class="feedback-info">Overall Score:</strong><br/>
+										<span class="stars" style="font-size:300%;"><?= Utils::getStarString($average); ?></span><br/>
+										<a href="#" class="feedback-info">&raquo; Detailed Feedback</a>
+									</p>
 								</div>
 							</div>
 						</div>

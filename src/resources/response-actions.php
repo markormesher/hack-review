@@ -45,7 +45,7 @@ class Responses {
 		$result = mysql_query('SELECT `question_id`, AVG(`value`) AS `average_score` FROM `' . DB_PREFIX . 'response_values` WHERE `response_id` IN (SELECT `response_id` FROM `' . DB_PREFIX . 'responses` WHERE `event_id` = \'' . $eventId . '\') AND `is_text` = 0 GROUP BY `question_id`;');
 		$output = array();
 		while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) $output[] = $row;
-		print_r($output);
+		return $output;
 	}
 
 	/* MUTATORS */
