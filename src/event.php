@@ -1309,7 +1309,7 @@ $e = Events::getById($_GET['e']);
 		</div>
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-		<script src="js/bootstrap.js"></script>
+		<script src="/js/bootstrap.js"></script>
 		<script>
 			$('.thumbnail').click(function () {
 				$('.modal-body').empty();
