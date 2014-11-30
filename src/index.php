@@ -37,11 +37,11 @@ require_once 'resources/_master-list.php';
 
 		<div class="container body-content">
 			<div id="top-event" class="row">
-				<div class="event-photo eventheader">
+				<div class="event-photo eventheader" style="background-image: url('/images/banners/unituhack.jpg');">
 					<div class="event-info col-sm-6">
 						<div class="row">
 							<div class="event-logo col-sm-4">
-								<img src="images/logounituhack.png">
+								<img src="/images/logos/unituhack.png">
 							</div>
 							<div class="event-summary col-sm-7">
 								<h2><em>Featured:</em>&nbsp;&nbsp;UNITU&nbsp;HACK</h2>
