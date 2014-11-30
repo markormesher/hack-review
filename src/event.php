@@ -10,15 +10,6 @@ $e = Events::getById($_GET['e']);
 		<link href="/css/bootstrap.css" rel="stylesheet">
 		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 		<link href="/css/site.css" rel="stylesheet">
-		<script>
-			$('.thumbnail').click(function () {
-				$('.modal-body').empty();
-				var title = $(this).parent('a').attr("title");
-				$('.modal-title').html(title);
-				$($(this).parents('div').html()).appendTo('.modal-body');
-				$('#myModal').modal({show: true});
-			});
-		</script>
 	</head>
 	<body>
 		<div class="navbar navbar-default">
@@ -48,7 +39,7 @@ $e = Events::getById($_GET['e']);
 		<div class="container body-content">
 
 			<div id="top-event" class="row">
-				<div class="event-photo eventheader">
+				<div class="event-photo eventheader" style="background-image:url('/images/banners/<?= $e['banner_file']; ?>');">
 					<div class="event-info col-sm-6">
 						<div class="row">
 							<div class="event-logo col-sm-5">
@@ -131,29 +122,13 @@ $e = Events::getById($_GET['e']);
 
 				<div class="container">
 					<div class="row">
-						<div class="col-lg-3 col-sm-4 col-6">
-							<a href="#" title="Image 1"><img src="images/1.png" class="thumbnail img-responsive"></a>
-						</div>
-						<div class="col-lg-3 col-sm-4 col-6">
-							<a href="#" title="Image 2"><img src="images/2.png" class="thumbnail img-responsive"></a>
-						</div>
-						<div class="col-lg-3 col-sm-4 col-6">
-							<a href="#" title="Image 3"><img src="images/3.png" class="thumbnail img-responsive"></a>
-						</div>
-						<div class="col-lg-3 col-sm-4 col-6">
-							<a href="#" title="Image 4"><img src="images/4.png" class="thumbnail img-responsive"></a>
-						</div>
-						<div class="col-lg-3 col-sm-4 col-6">
-							<a href="#" title="Image 5"><img src="images/5.png" class="thumbnail img-responsive"></a>
-						</div>
-						<div class="col-lg-3 col-sm-4 col-6">
-							<a href="#" title="Image 6"><img src="images/2.png" class="thumbnail img-responsive"></a>
-						</div>
-						<div class="col-lg-3 col-sm-4 col-6">
-							<a href="#" title="Image 8"><img src="images/2.png" class="thumbnail img-responsive"></a>
-						</div>
+						<?php
+						$images = explode(',', $e['gallery_files']);
+						foreach ($images as $i) {
+							echo('<div class="col-lg-3 col-sm-4 col-6"><a href="#"><img src="/images/gallery/' . $i . '" class="thumbnail img-responsive"></a></div>');
+						}
+						?>
 					</div>
-
 
 				</div>
 				<div id="myModal" class="modal fade" tabindex="-1" role="dialog">
@@ -172,12 +147,10 @@ $e = Events::getById($_GET['e']);
 						</div>
 					</div>
 				</div>
-
-
 			</div>
 		</div>
 
-		<!-- user review start -->
+		<!-- user review start
 		<div class="event-divider">
 			<div class="eventsingle-section col-sm-3">
 				<div class="event-user">
@@ -366,12 +339,10 @@ $e = Events::getById($_GET['e']);
 
 			</div>
 			<div class="event-divider">
-				<!-- user review end -->
 
 			</div>
 		</div>
 
-		<!-- user review start -->
 		<div class="event-divider">
 			<div class="eventsingle-section col-sm-3">
 				<div class="event-user">
@@ -560,12 +531,12 @@ $e = Events::getById($_GET['e']);
 
 			</div>
 			<div class="event-divider">
-				<!-- user review end -->
+
 
 			</div>
 		</div>
 
-		<!-- user review start -->
+
 		<div class="event-divider">
 			<div class="eventsingle-section col-sm-3">
 				<div class="event-user">
@@ -754,12 +725,12 @@ $e = Events::getById($_GET['e']);
 
 			</div>
 			<div class="event-divider">
-				<!-- user review end -->
+
 
 			</div>
 		</div>
 
-		<!-- user review start -->
+
 		<div class="event-divider">
 			<div class="eventsingle-section col-sm-3">
 				<div class="event-user">
@@ -948,12 +919,10 @@ $e = Events::getById($_GET['e']);
 
 			</div>
 			<div class="event-divider">
-				<!-- user review end -->
 
 			</div>
 		</div>
 
-		<!-- user review start -->
 		<div class="event-divider">
 			<div class="eventsingle-section col-sm-3">
 				<div class="event-user">
@@ -1142,12 +1111,10 @@ $e = Events::getById($_GET['e']);
 
 			</div>
 			<div class="event-divider">
-				<!-- user review end -->
 
 			</div>
 		</div>
 
-		<!-- user review start -->
 		<div class="event-divider">
 			<div class="eventsingle-section col-sm-3">
 				<div class="event-user">
@@ -1336,12 +1303,21 @@ $e = Events::getById($_GET['e']);
 
 			</div>
 			<div class="event-divider">
-				<!-- user review end -->
+				 user review end -->
 
 			</div>
 		</div>
 
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 		<script src="js/bootstrap.js"></script>
+		<script>
+			$('.thumbnail').click(function () {
+				$('.modal-body').empty();
+				var title = $(this).parent('a').attr("title");
+				$('.modal-title').html(title);
+				$($(this).parents('div').html()).appendTo('.modal-body');
+				$('#myModal').modal({show: true});
+			});
+		</script>
 	</body>
 </html>

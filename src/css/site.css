@@ -81,7 +81,7 @@ a.text-primary:hover {
 }
 
 .event-photo {
-	background: url('../images/homeheader.jpg') no-repeat center;
+	background: url('') no-repeat center;
 	background-size: cover;
 	height: 250px;
 }
