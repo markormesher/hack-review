@@ -79,12 +79,28 @@ class Responses {
 		$row = mysql_fetch_array($result, 0);
 		$highest = base_convert($row[0], 36, 10);
 		$ids = array();
-		for ($i = 0; $i < $quantity; $i++) {
+		for ($i = 1; $i <= $quantity; $i++) {
 			$newId = str_pad(base_convert(($highest + $i) . '', 10, 36), 6, '0', STR_PAD_LEFT);
 			$ids[] = $newId;
 			mysql_query('INSERT INTO `' . DB_PREFIX . 'responses` VALUES (\'' . $newId . '\', \'' . $eventId . '\', \'open\');');
 		}
 		return $ids;
+	}
+
+	public static function sendResponseUrls($eventId, $emails) {
+		require("vendors/sendgrid-php/sendgrid-php.php");
+		$sendgrid = new SendGrid('oxhack-example', 'swagson');
+		$email = new SendGrid\Email();
+		$ids = Responses::generateResponseIds($eventId, count($emails));
+		for ($i = 0; $i < count($emails); ++$i) {
+			$id = $ids[$i];
+			$email->addTo($emails[$i])->
+			setFrom('noreply@oxhack.markormesher.co.uk')->
+			setSubject('HackReview')->
+			setText("Your unique HackReview URL is...\n\nhttp://oxhack.markormesher.co.uk/r/$id\n\nDon't share it with anyone!\n\nHappy Hacking,\nHackReview");
+			$sendgrid->send($email);
+		}
+		return count($ids);
 	}
 
 }
