@@ -82,12 +82,14 @@ $e = Events::getById($_GET['e']);
 							<div class="dark-overlay"></div>
 							<?php
 							$average = Responses::getAverageScoreByEventId($e['event_id']);
+							$total = Responses::getCountByEventId($e['event_id']);
 							$breakdown = Responses::getAverageQuestionScoreByEventId($e['event_id']);
 							?>
 							<div class="event-feedback header">
 								<div class="feedback-rating">
 									<p>
 										<span class="stars" style="font-size:200%;"><?= Utils::getStarString($average); ?></span>
+										<span class="feedback-count">(<?= $total; ?>)</span>
 									</p>
 								</div>
 								<div class="feedback-rating">
@@ -95,7 +97,7 @@ $e = Events::getById($_GET['e']);
 										<?php
 										for ($i = 0; $i < count($breakdown); $i += 2) {
 											$q1 = Questions::getById($breakdown[$i]['question_id']);
-											$q2 = Questions::getById($breakdown[$i+1]['question_id']);
+											$q2 = Questions::getById($breakdown[$i + 1]['question_id']);
 											echo('<tr><td class="group">' . $q1['summary'] . '</td><td>' . Utils::getStarString($breakdown[$i]['average_score']) . '</td><td class="pad">&nbsp;</td><td class="group">' . $q2['summary'] . '</td><td>' . Utils::getStarString($breakdown[$i + 1]['average_score']) . '</td></tr>');
 										}
 										?>

@@ -23,6 +23,12 @@ class Responses {
 		}
 	}
 
+	public static function getCountByEventId($eventId) {
+		$result = mysql_query('SELECT COUNT(`event_id`) FROM `' . DB_PREFIX . 'responses` WHERE `event_id` = \'' . $eventId . '\' AND `status` = \'closed\';');
+		$row = mysql_fetch_array($result, MYSQL_NUM);
+		return $row[0];
+	}
+
 	public static function getAverageScoreByEventId($eventId) {
 		$result = mysql_query('SELECT AVG(`value`) FROM `' . DB_PREFIX . 'response_values` WHERE `response_id` IN (SELECT `response_id` FROM `' . DB_PREFIX . 'responses` WHERE `event_id` = \'' . $eventId . '\') AND `is_text` = 0;');
 		$row = mysql_fetch_array($result, MYSQL_NUM);
