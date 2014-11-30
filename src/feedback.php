@@ -3,6 +3,27 @@ require_once 'resources/_master-list.php';
 $responseId = $_GET['r'];
 $questions = Questions::getByResponseId($responseId);
 $event = Events::getByResponseId($responseId);
+
+//handle form
+$formSent = false;
+$formError = false;
+if (isset($_POST) && isset($_POST['sent'])) {
+    $output = array();
+    foreach($_POST as $key=>$value) {
+        if(substr($key, 0, 1)== 'q') {
+            if(is_numeric($value) && ($value<0 || $value>5)) {
+                $formError = true;
+                break;
+            }
+            $id = substr($key, 1);
+            $output[$id] = $value;
+        }
+    }
+    if(!$formError) {
+        $formSent = true;
+        Responses::send($responseId, $output);
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -52,13 +73,19 @@ $event = Events::getByResponseId($responseId);
 					$questions = Questions::getByResponseId($responseId);
 					$status = Responses::getStatusById($responseId);
 					$event = Events::getByResponseId($responseId);
-					if ($questions == null) {
+                    if($formError) {
+                        echo('<p class="text-danger">All star ratings must be completed.</p>');
+                    }
+                    if($formSent) {
+                        echo('<p class="text-success">Thank you for your feedback!</p>');
+                    } elseif ($questions == null) {
 						echo('<p class="text-danger">Invalid access key.</p>');
 					} elseif ($status == 'closed') {
 						echo('<p class="text-danger">Sorry, access links are single-use only.</p>');
 					} else {
 					?>
-					<form class="form-horizontal">
+					<form class="form-horizontal" action="/r/<?= $responseId; ?>" method="post">
+                        <input type="hidden" name="sent" value="1" />
 						<fieldset>
 							<legend>Give feedback for <?= $event['title']; ?></legend>
 							<?php
@@ -89,7 +116,7 @@ $event = Events::getByResponseId($responseId);
 								}
 							}
 
-							echo('<div class="form-group col-md-12 margin-top-20"><a href="#" class="btn btn-success btn-lg btn-block">Submit Review</a></div>');
+							echo('<div class="form-group col-md-12 margin-top-20"><button type="submit" class="btn btn-success btn-lg btn-block">Submit Review</button></div>');
 							}
 							?>
 						</fieldset>
