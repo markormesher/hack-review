@@ -89,14 +89,14 @@ class Responses {
 
 	public static function sendResponseUrls($eventId, $emails) {
 		require("vendors/sendgrid-php/sendgrid-php.php");
-		$sendgrid = new SendGrid('oxhack-example', 'swagson');
+		$sendgrid = new SendGrid('oxhack-azham', 'oxhack2014');
 		$email = new SendGrid\Email();
 		$ids = Responses::generateResponseIds($eventId, count($emails));
 		for ($i = 0; $i < count($emails); ++$i) {
 			$id = $ids[$i];
 			$email->addTo($emails[$i])->
 			setFrom('noreply@oxhack.markormesher.co.uk')->
-			setSubject('HackReview')->
+			setSubject('OXHACK: HackReview')->
 			setText("Your unique HackReview URL is...\n\nhttp://oxhack.markormesher.co.uk/r/$id\n\nDon't share it with anyone!\n\nHappy Hacking,\nHackReview");
 			$sendgrid->send($email);
 		}
