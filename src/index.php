@@ -44,7 +44,7 @@ require_once 'resources/_master-list.php';
 								<img src="images/logounituhack.png">
 							</div>
 							<div class="event-summary col-sm-7">
-								<h2>UNITU HACK</h2>
+								<h2><em>Featured:</em>&nbsp;&nbsp;UNITU&nbsp;HACK</h2>
 								<h5><i class="fa fa-calendar"></i> 8TH NOV</h5>
 								<h5><i class="fa fa-clock-o"></i> 8AM - 8PM</h5>
 								<h5><i class="fa fa-map-marker"></i> LONDON UK</h5>
@@ -55,20 +55,28 @@ require_once 'resources/_master-list.php';
 					<div class="feedback-section col-sm-6">
 						<div class="row">
 							<div class="dark-overlay"></div>
+							<?php
+							$average = Responses::getAverageScoreByEventId(2);
+							$total = Responses::getCountByEventId(2);
+							$breakdown = Responses::getAverageQuestionScoreByEventId(2);
+							?>
 							<div class="event-feedback header">
-								<div class="feedback-summary">
-									<h2>
-										<em>&quot;The event was well organised and the atmosphere was amazing!&quot;</em>
-									</h2>
-								</div>
-								<div class="feedback-date">
-									<p class="help-block">11/14/2014</p>
-								</div>
 								<div class="feedback-rating">
 									<p>
-										<span class="stars"><?= Utils::getStarString(4.5); ?></span>&nbsp;
-										<span class="feedback-count">(74)</span>
+										<span class="stars" style="font-size:200%;"><?= Utils::getStarString($average); ?></span>
+										<span class="feedback-count">(<?= $total; ?>)</span>
 									</p>
+								</div>
+								<div class="feedback-rating">
+									<table class="feedback-summary">
+										<?php
+										for ($i = 0; $i < count($breakdown); $i += 2) {
+											$q1 = Questions::getById($breakdown[$i]['question_id']);
+											$q2 = Questions::getById($breakdown[$i + 1]['question_id']);
+											echo('<tr><td class="group">' . $q1['summary'] . '</td><td>' . Utils::getStarString($breakdown[$i]['average_score']) . '</td><td class="pad">&nbsp;</td><td class="group">' . $q2['summary'] . '</td><td>' . Utils::getStarString($breakdown[$i + 1]['average_score']) . '</td></tr>');
+										}
+										?>
+									</table>
 								</div>
 							</div>
 						</div>
@@ -121,11 +129,13 @@ require_once 'resources/_master-list.php';
 								<div class="feedback-rating">
 									<?php
 									$average = Responses::getAverageScoreByEventId($e['event_id']);
+									$total = Responses::getCountByEventId($e['event_id']);
 									?>
 									<p>
 										<strong class="feedback-info">Overall Score:</strong><br/>
-										<span class="stars" style="font-size:300%;"><?= Utils::getStarString($average); ?></span><br/>
-										<a href="#" class="feedback-info">&raquo; Detailed Feedback</a>
+										<span class="stars" style="font-size:300%;"><?= Utils::getStarString($average); ?></span>
+										<span class="feedback-count">(<?= $total; ?>)</span> <br/>
+										<a href="/event/<?=$e['event_id']; ?>" class="feedback-info">&raquo; Detailed Feedback</a>
 									</p>
 								</div>
 							</div>
