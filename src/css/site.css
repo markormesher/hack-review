@@ -185,6 +185,19 @@ a.text-primary:hover {
 	font-size: 16px;
 }
 
+.feedback-summary {
+	font-size: 80%;
+}
+
+.feedback-summary .group {
+	color: #fff !important;
+	padding-right: 10px;
+}
+
+.feedback-summary .pad {
+	width: 50px;
+}
+
 #listings-section {
 	margin-left: 5%;
 	margin-right: 5%;

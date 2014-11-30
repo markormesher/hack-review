@@ -3,3 +3,4 @@ Options +FollowSymLinks
 RewriteEngine On
 
 RewriteRule ^r/([a-z0-9]{6})/?$ feedback.php?r=$1
+RewriteRule ^event/([0-9]+)/?$ event.php?e=$1
