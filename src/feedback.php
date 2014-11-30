@@ -87,34 +87,39 @@ if (isset($_POST) && isset($_POST['sent']) && $status == 'open') {
 						<fieldset>
 							<legend>Give feedback for <?= $event['title']; ?></legend>
 							<?php
-							foreach ($questions as $q) {
-								switch ($q['type']) {
-									case '5star':
-										echo('<div class="form-group col-md-12">
-										<label class="control-label">' . $q['text'] . '</label>
-										<div class="margin-top-10">
-										<input type="hidden" name="q' . $q['question_id'] . '" class="replace-five-star" value="-1" />
-										</div>
-										</div>');
-										break;
+							$blockingForDemo = true;
+							if (substr($responseId, 0, 4) == 'oxhk' && $blockingForDemo) {
+								echo('<p class="text-info">Submissions for OxHack will open soon! Be patient...</p>');
+							} else {
+								foreach ($questions as $q) {
+									switch ($q['type']) {
+										case '5star':
+											echo('<div class="form-group col-md-12">
+											<label class="control-label">' . $q['text'] . '</label>
+											<div class="margin-top-10">
+											<input type="hidden" name="q' . $q['question_id'] . '" class="replace-five-star" value="-1" />
+											</div>
+											</div>');
+											break;
 
-									case 'longtext':
-										echo('<div class="form-group col-md-12">
-										<label class="control-label">' . $q['text'] . '</label>
-										<textarea class="form-control" rows="3" name="q' . $q['question_id'] . '"></textarea>
-										</div>');
-										break;
+										case 'longtext':
+											echo('<div class="form-group col-md-12">
+											<label class="control-label">' . $q['text'] . '</label>
+											<textarea class="form-control" rows="3" name="q' . $q['question_id'] . '"></textarea>
+											</div>');
+											break;
 
-									case 'shorttext':
-										echo('<div class="form-group col-md-12">
-										<label class="control-label">' . $q['text'] . '</label>
-										<input type="text" class="form-control" name="q' . $q['question_id'] . '" />
-										</div>');
-										break;
+										case 'shorttext':
+											echo('<div class="form-group col-md-12">
+											<label class="control-label">' . $q['text'] . '</label>
+											<input type="text" class="form-control" name="q' . $q['question_id'] . '" />
+											</div>');
+											break;
+									}
 								}
-							}
 
-							echo('<div class="form-group col-md-12 margin-top-20"><button type="submit" class="btn btn-success btn-lg btn-block">Submit Review</button></div>');
+								echo('<div class="form-group col-md-12 margin-top-20"><button type="submit" class="btn btn-success btn-lg btn-block">Submit Review</button></div>');
+							}
 							}
 							?>
 						</fieldset>
