@@ -16,14 +16,14 @@ $event = Events::getByResponseId($responseId);
 		<link href="/css/five-star.css" rel="stylesheet">
 	</head>
 	<body>
-		<div class="navbar navbar-default">
+		<div class="navbar navbar-default" style="margin-bottom: 15px;">
 			<div class="navbar-header">
 				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Brand</a>
+				<a class="navbar-brand" href="#"></a>
 			</div>
 			<div class="navbar-collapse collapse navbar-responsive-collapse">
 				<form class="navbar-form navbar-right">
@@ -50,9 +50,12 @@ $event = Events::getByResponseId($responseId);
 					<?php
 					$responseId = $_GET['r'];
 					$questions = Questions::getByResponseId($responseId);
+					$status = Responses::getStatusById($responseId);
 					$event = Events::getByResponseId($responseId);
 					if ($questions == null) {
 						echo('<p class="text-danger">Invalid access key.</p>');
+					} elseif ($status == 'closed') {
+						echo('<p class="text-danger">Sorry, access links are single-use only.</p>');
 					} else {
 					?>
 					<form class="form-horizontal">

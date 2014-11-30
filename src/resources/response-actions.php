@@ -29,6 +29,12 @@ class Responses {
 		return $row[0];
 	}
 
+	public static function getStatusById($id) {
+		$result = mysql_query('SELECT `status` FROM `' . DB_PREFIX . 'responses` WHERE `response_id` = \'' . $id . '\';');
+		$row = mysql_fetch_array($result, MYSQL_NUM);
+		return $row[0];
+	}
+
 	public static function getAverageScoreByEventId($eventId) {
 		$result = mysql_query('SELECT AVG(`value`) FROM `' . DB_PREFIX . 'response_values` WHERE `response_id` IN (SELECT `response_id` FROM `' . DB_PREFIX . 'responses` WHERE `event_id` = \'' . $eventId . '\') AND `is_text` = 0;');
 		$row = mysql_fetch_array($result, MYSQL_NUM);
